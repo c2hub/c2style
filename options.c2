@@ -4,8 +4,8 @@ import types local;
 
 public type styleoptions struct
 {
-	bool singlemodule;		//if only a single module should be formatted
-	bool newlineelse;		//if a newline should be inserted before else - } else {	-> } \n else {
+	bool singletarget;		//if only a single target should be formatted
+	bool nlelse;			//if a newline should be inserted before else - } else {	-> } \n else {
 	bool openingbracketnl;	//if the opening bracket of a compound statement should have own line
 	bool closingbracketnl;	//if the closing bracket of any code block should have own line
 	bool functionbracketnl;	//if the opening bracket of a function should have own line
@@ -18,10 +18,10 @@ public type styleoptions struct
 	bool spacebeforeparens;	//if there should be a space before parenthesis - func(); -> func (); , if(true) -> if (true)
 	bool spacesaroundops;	//if there should be a space around operators - i=20; -> i = 20;
 	
-	string modulename;		//module name for a single-module formatting
+	string modulename;		//module name for a single-target formatting
 
-	int32 tabs;				//how many tabs should be used for one indent
-	int32 spaces;			//how many spaces should be used for one indent
+	uint8 tabs;				//how many tabs should be used for one indent
+	uint8 spaces;			//how many spaces should be used for one indent
 }
 
 /*	Example:
