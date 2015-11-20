@@ -1,16 +1,17 @@
-module main;
+module mainmod;
 
 import stdio as io;
 import stdlib local;
 import string local;
 import options local;
+import types local;
 
 public styleoptions opts; 
 public bool verbose = false;
 
-public int32 main(int32 argc, string[] args)
+public func int32 main(int32 argc, types.string[] args)
 {
-	io.printf("This is still unfinished, your selected options:")
+	io.printf("This is still unfinished, your selected options:");
 	if (parsearguments(args))
 	{
 		
@@ -19,32 +20,33 @@ public int32 main(int32 argc, string[] args)
 	{
 		exit(-1);
 	}
+	return 0;
 }
 
-public bool parsearguments(string[] args)
+public func bool parsearguments(types.string[] args)
 {
 	bool flag;
 	bool namefound = false;
 	for (int32 i = 0; i < elemsof(args); i++)
 	{
-		string arg = args[i];
+		types.string arg = args[i];
 		if(arg[0] = '-')
 		{
 			switch(arg[1])
 			{
 				case 't':
-					if(atoi(&arg[2]) => 0)
+					if(atoi(&arg[2]) >= 0)
 					{
 						opts.tabs = atoi(&arg[2]);
 					}
 					else
 					{
 						flag = false;
-						io.puts("The number of tabs must be positive")
+						io.puts("The number of tabs must be positive");
 					}
 					break;
 				case 's':
-					if(atoi(&arg[2]) => 0)
+					if(atoi(&arg[2]) >= 0)
 					{
 						opts.spaces = atoi(&arg[2]);
 					}
@@ -58,7 +60,7 @@ public bool parsearguments(string[] args)
 				case 'v':
 					verbose = true;
 					break;
-				case '-'
+				case '-':
 					if(strncmp(&arg[2], "nl", 2) == 0)
 					{
 						if(strcmp(&arg[4], "else")  == 0)
@@ -71,7 +73,7 @@ public bool parsearguments(string[] args)
 						}
 						else if(strcmp(&arg[4], "enbr")  == 0)
 						{
-							opts.closingbracketnl = true
+							opts.closingbracketnl = true;
 						}
 						else if(strcmp(&arg[4], "args")  == 0)
 						{

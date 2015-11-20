@@ -1,6 +1,6 @@
 module info;
 
-import types;
+import types local;
 
 public string[] keywords =
 {

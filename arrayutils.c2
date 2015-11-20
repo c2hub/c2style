@@ -1,11 +1,11 @@
-module arrayutils.c2;
+module arrayutils;
 
 import string local;
 import options local;
 import types local;
 
 //returns 1 if given string array contains the string, 0 if it doesn't
-public bool contains(string[] array, string str)
+public func bool contains(types.string[] array, types.string str)
 {
 	int32 i = elemsof(array) - 1;
 	while(i -->= 0)
