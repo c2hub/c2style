@@ -1,14 +1,33 @@
 module options;
 
-public type string char*;
+import types local;
 
 public type styleoptions struct
 {
-	bool singlemodule;
-	string modulename;
-	bool tabsforindent;
-	bool nlbeforebracket;
-	int32 tabs;
-	int32 spaces;
-	bool newlineelse; 
+	bool singlemodule;		//if only a single module should be formatted
+	bool newlineelse;		//if a newline should be inserted before else - } else {	-> } \n else {
+	bool openingbracketnl;	//if the opening bracket of a compound statement should have own line
+	bool closingbracketnl;	//if the closing bracket of any code block should have own line
+	bool functionbracketnl;	//if the opening bracket of a function should have own line
+	bool argsnl;			//if function parameters/arguments should be placed each on it's own line - func int32 foo(int32 arg1, int64 arg2) -> func int32 foo(int32 arg1,\n int64 arg2)
+	bool nlbetweenfunctions;//if there should be a newline after each function
+	bool nlundermodule;		//if there should be a newline under module statement
+	bool nlunderimports;	//if there should be a newline under import statements
+	bool tabsforindent;		//if tabs should be used for indenting instead of spaces
+	bool indentbrackets;	//if code blocks' brackets should be indent the same way as their contents, viz example below
+	bool spacebeforeparens;	//if there should be a space before parenthesis - func(); -> func (); , if(true) -> if (true)
+	bool spacesaroundops;	//if there should be a space around operators - i=20; -> i = 20;
+	
+	string modulename;		//module name for a single-module formatting
+
+	int32 tabs;				//how many tabs should be used for one indent
+	int32 spaces;			//how many spaces should be used for one indent
 }
+
+/*	Example:
+ *	public func int32 main(int32 argc, char*[] args)
+ *		{
+ *		printf("Hello, World!");
+ *		return 0;
+ *		}
+ */

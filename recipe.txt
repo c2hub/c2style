@@ -3,4 +3,7 @@ target c2style
 	$warnings no-unused
 	main.c2
 	options.c2
+	arrayutils.c2
+	types.c2
+	info.c2
 end 
