@@ -6,4 +6,5 @@ target c2style
 	arrayutils.c2
 	types.c2
 	info.c2
+	utils.c2
 end 

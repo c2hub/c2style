@@ -1,0 +1,8 @@
+module utils;
+
+import types;
+
+public string bools(bool b)
+{
+	return (b ? "true" : "false");
+}
