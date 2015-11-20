@@ -1,0 +1,6 @@
+module main;
+
+import stdio as io;
+import stdlib local;
+import string local;
+

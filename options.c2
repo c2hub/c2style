@@ -1,0 +1,14 @@
+module options;
+
+public type string char*;
+
+public type styleoptions struct
+{
+	bool singlemodule;
+	string modulename;
+	bool tabsforindent;
+	bool nlbeforebracket;
+	int32 tabs;
+	int32 spaces;
+	bool newlineelse; 
+}

@@ -1,0 +1,6 @@
+target c2style
+	$generate-c
+	$warnings no-unused
+	main.c2
+	options.c2
+end 
