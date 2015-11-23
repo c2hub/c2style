@@ -1,0 +1,12 @@
+module direct;
+
+public func int32 _chdir(char* path);
+public func int32 _chdrive(int32 drive);
+public func char* _getcwd(char* buffer, int32 length);
+public func char* _getwd(char *path_name);
+public func int32 _getdrive(void);
+public func int32 _mkdir(const char* pathname);
+public func int32 _rmdir(const char* pathname);
+public func void _fnmerge(char* path, const char* drive, const char* dir, const char* name, const char* ext);
+public func int32 _fnsplit(const char* path, char* drive, char* dir, char* name, char* ext);
+public func char* _searchpath(const char* file);
