@@ -1,8 +1,0 @@
-module utils;
-
-import types local;
-
-public func string bools(bool b)
-{
-	return (b ? "true" : "false");
-}

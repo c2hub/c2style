@@ -1,0 +1,4 @@
+module unistd;
+
+char* getcwd(char* buf, int32 size);
+int32 chdir(const char* path);
