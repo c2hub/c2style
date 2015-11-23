@@ -1,4 +1,10 @@
 module unistd;
 
-char* getcwd(char* buf, int32 size);
-int32 chdir(const char* path);
+public func int32 access(const char* filename, int32 amode);
+public func char* getcwd(char* buf, int32 size);
+public func int32 chdir(const char* path);
+
+public int32 R_OK = 4;
+public int32 W_OK = 2;
+public int32 X_OK = 1;
+public int32 F_OK = 0;
