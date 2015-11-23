@@ -1,5 +1,7 @@
 target c2style
 	$generate-c
+	$warnings no-unused
 	c2style.c2
 	../shared/c2vector.c2
+	../shared/utils.c2
 end
