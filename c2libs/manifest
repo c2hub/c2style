@@ -35,3 +35,6 @@ header = "direct.h"
 name = "unistd"
 header = "unistd.h"
 
+[[modules]]
+name = "ctype"
+header = "ctype.h"
