@@ -1,1 +1,13 @@
- 
+module c2style;
+
+import stdio local;
+import stdlib local;
+import c2vector local as vctr;
+import io local;
+
+vector targets;
+public func int32 main(int32 argc, char*[] args)
+{
+	vctr.init(targets);
+	return 0;
+}

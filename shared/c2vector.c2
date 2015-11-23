@@ -1,0 +1,77 @@
+module c2vector;
+
+import stdlib local;
+import stdio local;
+
+public type vector struct
+{
+    void** items;
+    int32 capacity;
+    int32 total;
+}
+
+public func void init(vector* v)
+{
+    v.capacity = 4;
+    v.total = 0;
+    v.items = malloc(sizeof(void *) * v.capacity);
+}
+
+public func int32 total(vector* v)
+{
+    return v.total;
+}
+
+func void resize(vector* v, int32 capacity)
+{
+    void** items = realloc(v.items, sizeof(void *) * capacity);
+    if (items != nil) 
+	{
+        v.items = items;
+        v.capacity = capacity;
+    }
+}
+
+public func void add(vector* v, void* item)
+{
+    if (v.capacity == v.total)
+        resize(v, v.capacity * 2);
+    v.items[v.total++] = item;
+}
+
+public func void set(vector* v, int32 index, void* item)
+{
+    if (index >= 0 && index < v.total)
+        v.items[index] = item;
+}
+
+public func void* get(vector* v, int32 index)
+{
+    if (index >= 0 && index < v.total)
+        return v.items[index];
+    return nil;
+}
+
+public func void delete(vector* v, int32 index)
+{
+    if (index < 0 || index >= v.total)
+        return;
+
+    v.items[index] = nil;
+
+    for (int32 i = 0; i < v.total - 1; i++) 
+	{
+        v.items[i] = v.items[i + 1];
+        v.items[i + 1] = nil;
+    }
+
+    v.total--;
+
+    if (v.total > 0 && v.total == v.capacity / 4)
+        resize(v, v.capacity / 2);
+}
+
+public func void free(vector *v)
+{
+    stdlib.free(v.items);
+}
