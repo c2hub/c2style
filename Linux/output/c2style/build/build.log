@@ -1,0 +1,63 @@
+current dir: /home/magnusi/Desktop/c2style/Linux
+changing to dir: output/c2style/build/
+running command: /usr/bin/make
+gcc -O3 -Wall -Wextra -Wno-unused -Wno-unused-parameter -std=c99 -c c2style.c -o c2style.o
+c2style.c:12:1: warning: missing initializer for field 'items' of 'c2vector_vector' [-Wmissing-field-initializers]
+ static c2vector_vector c2style_targets = { };
+ ^
+In file included from c2style.c:9:0:
+c2vector.h:13:10: note: 'items' declared here
+   void** items;
+          ^
+c2style.c:20:9: warning: second argument of 'main' should be 'char **' [-Wmain]
+ int32_t main(int32_t argc, unsigned char* args[]) {
+         ^
+In file included from /usr/include/string.h:635:0,
+                 from c2style.c:6:
+c2style.c: In function 'main':
+c2style.c:24:17: warning: pointer targets in passing argument 1 of '__builtin_strlen' differ in signedness [-Wpointer-sign]
+   while (strcmp(buf, "/") != 0) {
+                 ^
+c2style.c:24:17: note: expected 'const char *' but argument is of type 'unsigned char *'
+c2style.c:24:17: warning: pointer targets in passing argument 1 of '__builtin_strcmp' differ in signedness [-Wpointer-sign]
+   while (strcmp(buf, "/") != 0) {
+                 ^
+c2style.c:24:17: note: expected 'const char *' but argument is of type 'unsigned char *'
+c2style.c:24:17: warning: pointer targets in passing argument 1 of '__builtin_strlen' differ in signedness [-Wpointer-sign]
+   while (strcmp(buf, "/") != 0) {
+                 ^
+c2style.c:24:17: note: expected 'const char *' but argument is of type 'unsigned char *'
+c2style.c:24:17: warning: pointer targets in passing argument 1 of '__builtin_strcmp' differ in signedness [-Wpointer-sign]
+   while (strcmp(buf, "/") != 0) {
+                 ^
+c2style.c:24:17: note: expected 'const char *' but argument is of type 'unsigned char *'
+c2style.c:24:17: warning: pointer targets in passing argument 1 of '__builtin_strcmp' differ in signedness [-Wpointer-sign]
+   while (strcmp(buf, "/") != 0) {
+                 ^
+c2style.c:24:17: note: expected 'const char *' but argument is of type 'unsigned char *'
+c2style.c:24:17: warning: pointer targets in passing argument 1 of '__builtin_strcmp' differ in signedness [-Wpointer-sign]
+   while (strcmp(buf, "/") != 0) {
+                 ^
+c2style.c:24:17: note: expected 'const char *' but argument is of type 'unsigned char *'
+c2style.c:25:17: warning: pointer targets in passing argument 1 of 'getcwd' differ in signedness [-Wpointer-sign]
+     puts(getcwd(buf, 1024));
+                 ^
+In file included from c2style.c:7:0:
+/usr/include/unistd.h:511:14: note: expected 'char *' but argument is of type 'unsigned char *'
+ extern char *getcwd (char *__buf, size_t __size) __THROW __wur;
+              ^
+c2style.c:52:35: warning: pointer targets in passing argument 1 of 'strtok' differ in signedness [-Wpointer-sign]
+       unsigned char* pch = strtok(c2style_recipetxt, "\n");
+                                   ^
+In file included from c2style.c:6:0:
+/usr/include/string.h:348:14: note: expected 'char * restrict' but argument is of type 'unsigned char *'
+ extern char *strtok (char *__restrict __s, const char *__restrict __delim)
+              ^
+c2style.c:52:28: warning: pointer targets in initialization differ in signedness [-Wpointer-sign]
+       unsigned char* pch = strtok(c2style_recipetxt, "\n");
+                            ^
+c2style.c:56:13: warning: pointer targets in assignment differ in signedness [-Wpointer-sign]
+         pch = strtok(NULL, "\n");
+             ^
+gcc -O3 -Wall -Wextra -Wno-unused -Wno-unused-parameter -std=c99 -c c2vector.c -o c2vector.o
+gcc -o ../c2style c2style.o c2vector.o

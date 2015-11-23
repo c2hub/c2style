@@ -2,11 +2,65 @@ module c2style;
 
 import stdio local;
 import stdlib local;
-import c2vector local as vctr;
+import c2vector as vctr local;
+import unistd local;
+import string local;
 
 vector targets;
+
+FILE* recipe;
+int32 lSize;
+char* recipetxt;
+
 public func int32 main(int32 argc, char*[] args)
 {
-	vctr.init(targets);
-	return 0;
+	vctr.init(&targets);
+	char[1024] buf;
+	printf("started\n");
+	while(strcmp(buf, "/") != 0)
+	{
+		puts(getcwd(buf, 1024));
+		if(access("recipe.txt", R_OK) == 0)
+		{
+			recipe = fopen ("recipe.txt" , "rb");
+			if(!recipe) 
+			{
+				perror("recipe.txt");
+				exit(1);	
+			}
+			
+			fseek(recipe, 0L, SEEK_END);
+			lSize = ftell(recipe);
+			rewind(recipe);
+			
+			recipetxt = calloc( 1, lSize+1 );
+			if(!recipetxt)
+			{
+				fclose(recipe);
+				fputs("memory alloc fails", stderr);
+				exit(1);
+			}
+			
+			if(fread(recipetxt, lSize, 1, recipe) != 1)
+			{
+				fclose(recipe);
+				stdlib.free(recipetxt);
+				fputs("entire read fails", stderr);
+				exit(1);
+			}
+			fclose(recipe);
+			
+			char* pch = strtok(recipetxt,"\n");
+			while (pch != nil)
+			{
+				puts("----------");
+				printf ("%s\n",pch);
+				pch = strtok (nil, "\n");
+			}
+			
+			stdlib.free(recipetxt);
+		}
+		chdir("../");
+	}
+	return 1;
 }
