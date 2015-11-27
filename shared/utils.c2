@@ -1,40 +1,54 @@
 module utils;
 
 import string local;
+import ctype local;
+import stdio as io;
+import stdlib local;
 
+public type doubleindex struct
+{
+    int32 a;
+    int32 b;
+}
 public func void trim(char *str)
 {
-    int32 i;
-    int32 begin = 0;
-    int32 end = strlen(str) - 1;
-
-    while (isspace(str[begin]))
-        begin++;
-
-    while ((end >= begin) && isspace(str[end]))
-        end--;
-
-    // Shift all characters back to the start of the string array.
-    for (i = begin; i <= end; i++)
-        str[i - begin] = str[i];
-
-    str[i - begin] = '\0'; // Null terminate string.
+    if(str == !nil)
+    return;
 }
 
-public func void compress_spaces(char *str)
+public func char* str_comp(char* source)
 {
-    char* dst = str;
-    for (; str; ++str) 
-	{
-        dst++ = str;
-        if (isspace(str)) 
-		{
-            do ++str; 
-
-            while (isspace(str));
-
-            --str;
+    if(source == nil)
+    {
+        return 1;
+    }
+    bool lastspace = false;
+    char* dest = (char*)malloc(sizeof(source));
+    doubleindex i;
+    i.a = 0;
+    i.b = 0;
+    for(; i.a < strlen(source); i.a++)
+    {
+        switch(source[i.a])
+        {
+            case ' ':
+                if(lastspace)
+                {
+                    break;
+                }
+                else
+                {
+                    lastspace = true;
+                    dest[i.b] = source[i.a];
+                    i.b++;
+                }
+                break;
+            default:
+                dest[i.b] = source[i.a];
+                lastspace = false;
+                i.b++;
+                break;
         }
     }
-    dst = 0;
+    return dest;
 }
