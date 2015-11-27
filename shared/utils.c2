@@ -10,11 +10,6 @@ public type doubleindex struct
     int32 a;
     int32 b;
 }
-public func void trim(char *str)
-{
-    if(str == !nil)
-    return;
-}
 
 public func char* str_comp(char* source)
 {
