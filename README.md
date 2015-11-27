@@ -20,8 +20,10 @@ Once you have c2c installed, compilation of c2style is very easy
 you can, however, replace the folder with whichever one you want)
 
 ```
-cd path/to/folder/where/c2style/is
-export C2_LIBDIR=path/to/folder/where/c2style/is/
+cd $HOME
+git clone https://github.com/luciusmagn/c2style
+cd c2style
+export C2_LIBDIR=$HOME/c2style/c2libs	#c2style needs its interface files
 cd Linux OR cd Windows
 c2c
 ```
