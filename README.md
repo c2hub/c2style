@@ -16,9 +16,12 @@ In order to compile c2style, latest version of c2c is required.
 Installation guide can be found at http://github.com/c2lang/c2compiler .
 
 Once you have c2c installed, compilation of c2style is very easy
+(This installation steps are for installing to $HOME/c2style,
+you can, however, replace the folder with whichever one you want)
 
 ```
 cd path/to/folder/where/c2style/is
+export C2_LIBDIR=path/to/folder/where/c2style/is/
 cd Linux OR cd Windows
 c2c
 ```
