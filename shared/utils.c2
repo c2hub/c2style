@@ -11,11 +11,31 @@ public type doubleindex struct
     int32 b;
 }
 
+public func char* trim(char* source)
+{
+    if(source == nil)
+    {
+        return 0;
+    }
+    char* dest = (char*)malloc(sizeof(source));
+    doubleindex i;
+    i.a = 0;
+    i.b = strlen(source) - 1;
+    int32 j;
+    for(; source[i.a] == " "; i.a++) {}
+    for(; source[i.b] == " "; i.b--) {}
+    for(j = 0; j <= i.b - i.a; j++)
+    {
+        dest[j] = source[j + i.a];
+    }
+    return dest;
+}
+
 public func char* str_comp(char* source)
 {
     if(source == nil)
     {
-        return 1;
+        return 0;
     }
     bool lastspace = false;
     char* dest = (char*)malloc(sizeof(source));
@@ -29,7 +49,7 @@ public func char* str_comp(char* source)
             case ' ':
                 if(lastspace)
                 {
-                    break;
+                    continue;
                 }
                 else
                 {
