@@ -4,6 +4,7 @@ import stdio local;
 import stdlib local;
 import string local;
 import c2vector as vctr local;
+import utils local;
 
 public type target struct
 {
@@ -17,13 +18,21 @@ public type readerstate enum
 }
 
 readerstate state = START;
-char* currentline;
-public func void handleLine(char* line) {
-    if (line[0] == '#') return; // skip comments
-    currentline = line;
+char* currentname;
+public func void handleLine(char* line) 
+{
+    if (line[0] == '#' || isws(line)) return; // skip comments
+    char* lncpy = line;
     switch (state) {
     case START:
         {
+            char* pch = strtok(recipetxt," ");
+			while (pch != nil)
+			{
+				puts("----------");
+				printf ("%s\n",pch);
+				pch = strtok (nil, "\n");
+			}
             // line should be 'TARGET <name>'
             const char* kw = get_token();
             if (strcmp(kw, "target") == 0) 

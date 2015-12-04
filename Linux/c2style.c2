@@ -18,6 +18,7 @@ public func int32 main(int32 argc, char*[] args)
 	vctr.init(&targets);
 	char[1024] buf;
 	printf("started\n");
+	handleargs(args);
 	while(strcmp(buf, "/") != 0)
 	{
 		puts(getcwd(buf, 1024));

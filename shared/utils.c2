@@ -47,3 +47,25 @@ public func char* str_comp(char* source)
     }
     return dest;
 }
+
+public func bool isws(const char* str)
+{
+    bool flag = true;
+    for(int32 i = 0; i < strlen(str); i++)
+    {
+        if(str[i] == " "
+        || str[i] == "\t"
+        || str[i] == "\n"
+        || str[i] == "\f"
+        || str[i] == "\r"
+        || str[i] == "\v"
+        ) continue;
+        else
+        {
+            flag = false;
+            break;
+        }      
+    }
+    
+    return flag;
+}
