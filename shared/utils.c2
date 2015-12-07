@@ -5,6 +5,7 @@ import ctype local;
 import stdio as io;
 import stdlib local;
 import types local;
+import c2vector as vctr local;
 
 public func char* str_comp(char* source)
 {
@@ -63,4 +64,16 @@ public func bool isws(const char* str)
     }
     
     return flag;
+}
+
+public func char* getopts(vector opts)
+{
+    char* buffer = "";
+    int32 i = opts.total - 1;
+    while(i --> -1)
+    {
+        buffer = strcat(strcat(buffer, " "), vctr.get(&opts, i));
+    }
+    
+    return buffer;
 }
