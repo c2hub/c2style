@@ -4,12 +4,7 @@ import string local;
 import ctype local;
 import stdio as io;
 import stdlib local;
-
-public type doubleindex struct
-{
-    int32 a;
-    int32 b;
-}
+import types local;
 
 public func char* str_comp(char* source)
 {

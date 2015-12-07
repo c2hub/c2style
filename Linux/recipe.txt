@@ -4,4 +4,5 @@ target c2style
 	c2style.c2
 	../shared/c2vector.c2
 	../shared/utils.c2
+	../shared/types.c2
 end
