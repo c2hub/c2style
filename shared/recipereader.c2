@@ -97,6 +97,8 @@ public func void handleLine(char* line)
                 } 
                 else 
                 {
+                    readerror(strcat("unexpected token: %s", tok));
+                    abort();
                 }
             } 
             else if (strcmp(tok, "end") == 0) 
