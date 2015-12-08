@@ -68,11 +68,12 @@ public func bool isws(const char* str)
 
 public func char* getopts(vector opts)
 {
-    char* buffer = "";
+    char[1024] buffer = "";
     int32 i = opts.total - 1;
     while(i --> -1)
     {
-        buffer = strcat(strcat(buffer, " "), vctr.get(&opts, i));
+        strcat(buffer, " ");
+        strcat(buffer, (char*)vctr.get(&opts, i));
     }
     
     return buffer;
