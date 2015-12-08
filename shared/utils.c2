@@ -66,14 +66,15 @@ public func bool isws(const char* str)
     return flag;
 }
 
-public func char* getopts(vector opts)
+public func char* getopts(vector opts, char** buffer)
 {
-    char[1024] buffer = "";
-    int32 i = opts.total - 1;
+    int32 i = vctr.total(&opts) - 1;
+    io.printf("%d %s\n", i, (char*)vctr.get(&opts, i));
+    io.printf("test2 %d %s\n", vctr.total(&opts), vctr.get(&opts, vctr.total(&opts) - 1));
     while(i --> -1)
     {
         strcat(buffer, " ");
-        strcat(buffer, (char*)vctr.get(&opts, i));
+        strcat(buffer, vctr.get(&opts, i));
     }
     
     return buffer;
