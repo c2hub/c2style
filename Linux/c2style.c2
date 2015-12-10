@@ -6,8 +6,11 @@ import c2vector as vctr local;
 import unistd local;
 import string local;
 import utils;
+import types local;
 
 vector targets;
+vector astyleopts;
+options opts;
 
 FILE* recipe;
 int32 lSize;
@@ -15,54 +18,159 @@ char* recipetxt;
 
 public func int32 main(int32 argc, char*[] args)
 {
+	if(argc == 1) 
+	{
+		usage(args[0]);
+		return 0;
+	}
 	vctr.init(&targets);
 	char[1024] buf;
-	printf("started\n");
-	handleargs(args);
-	while(strcmp(buf, "/") != 0)
+	handleargs(args, argc);
+	if(!opts.singlefile)
 	{
-		puts(getcwd(buf, 1024));
-		if(access("recipe.txt", R_OK) == 0)
+		while(strcmp(buf, "/") != 0)
 		{
-			recipe = fopen ("recipe.txt" , "rb");
-			if(!recipe) 
+			puts(getcwd(buf, 1024));
+			if(access("recipe.txt", R_OK) == 0)
 			{
-				perror("recipe.txt");
-				exit(1);	
-			}
-			
-			fseek(recipe, 0L, SEEK_END);
-			lSize = ftell(recipe);
-			rewind(recipe);
-			
-			recipetxt = calloc( 1, lSize+1 );
-			if(!recipetxt)
-			{
+				recipe = fopen ("recipe.txt" , "rb");
+				if(!recipe) 
+				{
+					perror("recipe.txt");
+					exit(1);	
+				}
+				
+				fseek(recipe, 0L, SEEK_END);
+				lSize = ftell(recipe);
+				rewind(recipe);
+				
+				recipetxt = calloc(1,lSize + 1);
+				if(!recipetxt)
+				{
+					fclose(recipe);
+					fputs("memory alloc fails", stderr);
+					exit(1);
+				}
+				
+				if(fread(recipetxt, lSize, 1, recipe) != 1)
+				{
+					fclose(recipe);
+					stdlib.free(recipetxt);
+					fputs("entire read fails", stderr);
+					exit(1);
+				}
 				fclose(recipe);
-				fputs("memory alloc fails", stderr);
-				exit(1);
-			}
-			
-			if(fread(recipetxt, lSize, 1, recipe) != 1)
-			{
-				fclose(recipe);
+				
+				char* pch = strtok(recipetxt,"\n");
+				while (pch != nil)
+				{
+					
+				}
+				
 				stdlib.free(recipetxt);
-				fputs("entire read fails", stderr);
-				exit(1);
 			}
-			fclose(recipe);
-			
-			char* pch = strtok(recipetxt,"\n");
-			while (pch != nil)
-			{
-				puts("----------");
-				printf ("%s\n",pch);
-				pch = strtok (nil, "\n");
-			}
-			
-			stdlib.free(recipetxt);
+			chdir("../");
 		}
-		chdir("../");
 	}
-	return 1;
+	else
+	{
+		char[1024] optsstr;
+		utils.getopts(astyleopts);
+		char[1024] cmd = "astyle "; 
+		strcat(cmd, opts.name); strcat(cmd, " "); 
+		strcat(cmd, utils.getopts(astyleopts));
+		//popen(cmd, "w");
+		return 0;
+	}
+	return -1;
+}
+
+public func void handleargs(const char*[] args, int32 argc)
+{
+	for(int32 i = 0; i < argc; i++)
+	{
+		const char* arg = args[i];
+		switch(arg[0])
+		{
+			case '-':
+				if(strcmp(&arg[1], "s") == 0)
+				{
+					opts.singletarget = true;
+				}
+				else if(strcmp(&arg[1], "f") == 0)
+				{
+					opts.singlefile = true;
+				}
+				else if(strcmp(&arg[1], "h") == 0)
+				{
+					usage(args[0]);
+				}
+				else if(strcmp(&arg[1], "-about") == 0)
+				{
+					about();
+				}
+				else if(strcmp(&arg[1], "-lic") == 0)
+				{
+					license();
+				}
+				else
+				{
+					vctr.add(&astyleopts, arg);
+				}
+				break;
+			default:
+				opts.name = arg;
+				break;
+		}
+	}
+	
+	check();
+}
+
+public func void usage(char* name)
+{
+  printf("Usage: $s [any options] (name) [astyle options]		  \n", name);
+	
+	puts("Options:											  		");
+	puts("	-f		- format a single file 					 		");
+	puts("	-h		- print this usage text							");
+	puts("	-s		- format single targets							");
+	puts("	--about - prints information about this tool			");
+	puts("	--lic 	- shows the license of this thing				");
+	puts("Some astyle options:										");
+	puts("	--style=name	- format with a style (e.g allman, kr)	");
+	puts("	--break-elseifs - break else ifs' line					");
+	puts("	--indent=spaces	- use spaces for indenting				");
+	puts("	--indent=tabs	- use tabs for indenting				");
+	puts("	--keep-one-line-blocks	- self explanatory				");
+	
+	exit(0);
+}
+
+public func void about()
+{
+	puts("C2Style by Lukas Hozda\n");
+	puts("Provices a way to format .c2 files nicely, evenly and with a lot of options.");
+	puts("Requires astyle and is written in C2.");
+	puts("See c2lang.org for more information on C2.");
+	
+	exit(0);
+}
+
+
+public func void license()
+{
+	puts("Lukas Hozda(luk.hozda@gmail.com, github.com/luciusmagn), (c)2015\n");
+	puts("Usage of the works is permitted provided that this instrument is	");
+	puts("retained with the works, so that any entity that uses the works 	");
+	puts("is notified of this instrument.								  \n");
+	puts("DISCLAIMER: THE WORKS ARE WITHOUT WARRANTY.						");
+	
+	exit(0);
+}
+
+public func void check()
+{
+	if(opts.singlefile && opts.name == nil) exit(-1);
+	if(vctr.total(&astyleopts) == 0) exit(-1);
 }
