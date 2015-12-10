@@ -1,0 +1,7 @@
+*.c
+*.h
+*.o
+*.log
+*.exe		#just in case heh
+Makefile
+c2style
