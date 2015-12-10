@@ -3,6 +3,8 @@ module c2vector;
 import stdlib local;
 import stdio local;
 
+//Implementation of a vector in C2. Based on tutorial for
+//C by Edd Mann
 public type vector struct
 {
     void** items;
