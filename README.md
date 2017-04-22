@@ -2,22 +2,18 @@ This is an implementation of one of the tools specified at
 http://github.com/c2lang/c2compiler
 
 C2Style only finds and parses recipe.txt and executes astyle
-on all the files in the target specified for formatting.
+on all the files in target targets.
 
 It is also possible to format all targets in a recipe.txt.
 
-Versions for both Windows and Linux provided. I don't know
-how to work with Mac OSX, so I don't know what the differences
-are. Hopefully Linux version will work on Macs.
+## Installation
 
-##Installation
-
-In order to compile c2style, latest version of c2c is required.
+In order to compile c2style, the latest version of c2c is required.
 Installation guide can be found at http://github.com/c2lang/c2compiler .
 
 Once you have c2c installed, compilation of c2style is very easy
 (This installation steps are for installing to $HOME/c2style,
-you can, however, replace the folder with whichever one you want)
+you can, however, replace the folder with whatever you want)
 
 ```
 cd $HOME
