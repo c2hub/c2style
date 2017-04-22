@@ -11,6 +11,7 @@ public type target struct
     char* name;
     vector files;
 }
+
 public type readerstate enum
 {
     START,
@@ -19,7 +20,7 @@ public type readerstate enum
 
 readerstate state = START;
 char* currentname;
-public func void handleLine(char* line) 
+public func void handleLine(char* line)
 {
     if (line[0] == '#' || isws(line)) return; // skip comments
     char* lncpy = line;
@@ -35,19 +36,19 @@ public func void handleLine(char* line)
 			}
             // line should be 'TARGET <name>'
             const char* kw = get_token();
-            if (strcmp(kw, "target") == 0) 
+            if (strcmp(kw, "target") == 0)
             {
                 char* save;
                 const char* target_name = get_token();
                 if (target_name == 0) readerror("expected target name");
                 recipes.push_back(current);
                 state = INSIDE_TARGET;
-            } 
-            else if (strcmp(kw, "lib") == 0) 
+            }
+            else if (strcmp(kw, "lib") == 0)
             {
                 state = INSIDE_TARGET;
-            } 
-            else 
+            }
+            else
             {
                 readerror("expected keyword target|lib");
             }
@@ -57,55 +58,55 @@ public func void handleLine(char* line)
         {
             // line should be '<filename>' or 'end'
             const char* tok = get_token();
-            if (tok[0] == '$') 
+            if (tok[0] == '$')
             {
                 tok++;
-                if (strcmp(tok, "config") == 0) 
+                if (strcmp(tok, "config") == 0)
                 {
-                    while (1) 
+                    while (1)
                     {
                         const char* tok2 = get_token();
                         if (!tok2) break;
                         // TODO check duplicate configs
                         current->addConfig(tok2);
                     }
-                } 
-                else if (strcmp(tok, "export") == 0) 
+                }
+                else if (strcmp(tok, "export") == 0)
                 {
-                    while (1) 
+                    while (1)
                     {
                         const char* tok2 = get_token();
                         if (!tok2) break;
-                        if (current->hasExported(tok2)) 
+                        if (current->hasExported(tok2))
                         {
                             error("duplicate module '%s'", tok2);
                         }
                         current->addExported(tok2);
                     }
-                } 
-                else if (strcmp(tok, "generate-c") == 0) 
+                }
+                else if (strcmp(tok, "generate-c") == 0)
                 {
-                } 
-                else if (strcmp(tok, "warnings") == 0) 
+                }
+                else if (strcmp(tok, "warnings") == 0)
                 {
-                } 
-                else if (strcmp(tok, "deps") == 0) 
+                }
+                else if (strcmp(tok, "deps") == 0)
                 {
-                } 
-                else if (strcmp(tok, "refs") == 0) 
+                }
+                else if (strcmp(tok, "refs") == 0)
                 {
-                } 
-                else 
+                }
+                else
                 {
                     readerror(strcat("unexpected token: %s", tok));
                     abort();
                 }
-            } 
-            else if (strcmp(tok, "end") == 0) 
+            }
+            else if (strcmp(tok, "end") == 0)
             {
                 state = START;
-            } 
-            else 
+            }
+            else
             {
                 current->addFile(tok);
             }
